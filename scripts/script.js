@@ -3,7 +3,6 @@ var states=["new","in progress","done", "deleted"];
 var note={text:"", state:0};
 var db;
 document.addEventListener('DOMContentLoaded', function(){ 
-	//alert("Hello putos");
 	if("indexedDB" in window) {
 		dbSupported= true;
 		var openRequest = indexedDB.open("misNotas",1);
@@ -20,7 +19,9 @@ document.addEventListener('DOMContentLoaded', function(){
     	}
 
     	openRequest.onerror =  function(e){
-    		alert('something is fucked up');
+            foreach(var t in e)
+            console.error(t);
+    		alert('something went wrong while opening/creating database');
     	}
 
 	}
@@ -34,11 +35,13 @@ function save(){
 
 	note.text=document.getElementById("txtNote").value;
 	note.state=1;
+    //TODO: get position of note and update
 	console.log("we are trying to add : "+note.text);
 	var request = store.add(note);
+
 	request.onerror = function(e) {
         console.log("Error",e.target.error.name);
-        //some type of error handler
+        alert("Error saving text");
     }
     request.onsuccess = function(e) {
         console.log("Woot! Did it");
@@ -53,13 +56,10 @@ function read(){
         var cursor = e.target.result;
         if(cursor) {
             s += "<div class='post-it'><p>";
-            //for(var field in cursor.value) {
-            	//console.log("selector "+ field);
-               //s+= field +"="+cursor.value[field]+"<br/>";
-            //}
             s+= cursor.value["text"]+"<br/>";
             s+="</p></div>";
             cursor.continue();
+            //TODO get x, y values and paint
         }
         document.getElementById("storedNotes").innerHTML = s;
     } 
