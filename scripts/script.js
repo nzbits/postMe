@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function(){
     	}
 
     	openRequest.onerror =  function(e){
-            foreach(var t in e)
+            foreach( t in e)
             console.error(t);
     		alert('something went wrong while opening/creating database');
     	}
