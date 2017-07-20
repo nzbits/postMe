@@ -32,7 +32,6 @@ function save(){
 	//console.log("running save with db "+db);
 	var transaction = db.transaction(["notas"],"readwrite");
     var store = transaction.objectStore("notas");
-
 	note.text=document.getElementById("txtNote").value;
 	note.state=1;
     //TODO: get position of note and update
@@ -45,6 +44,7 @@ function save(){
     }
     request.onsuccess = function(e) {
         console.log("Woot! Did it");
+        document.getElementById("txtNote").value="";
         read();
     }
 };
@@ -55,7 +55,7 @@ function read(){
     db.transaction(["notas"], "readonly").objectStore("notas").openCursor().onsuccess = function(e) {
         var cursor = e.target.result;
         if(cursor) {
-            s += "<div class='post-it'><p>";
+            s += "<div class='post-it' draggable='true'> <input type='Button' id='btnDelete' onClick='deleteDiv("+cursor.key+")' class='closeBtn' value='X'/><p>";
             s+= cursor.value["text"]+"<br/>";
             s+="</p></div>";
             cursor.continue();
@@ -64,8 +64,38 @@ function read(){
         document.getElementById("storedNotes").innerHTML = s;
     } 
 
-}
+};
 
+function onEnter()
+{
 
+        var keyPressed = event.keyCode || event.which;
+        console.log("running onEnter "+keyPressed);
+        if(keyPressed==13)
+        {
+            console.log('hit enter');
+            keyPressed=null;
+            save();
+        }
+        else
+        {
+            return false;
+        }
+};
     
-
+function deleteDiv(a)
+{
+    //console.log('running delete: '+a);
+    //alert('Deleting ');
+    var transaction = db.transaction(["notas"],"readwrite");
+    var store = transaction.objectStore("notas");
+    var request = store.delete(a);
+    request.onerror = function(e) {
+        console.log("Error",e.target.error.name);
+        alert("Error Deleting note");
+    }
+    request.onsuccess = function(e) {
+        console.log("Woot! Did it");
+        read();
+    }
+};
