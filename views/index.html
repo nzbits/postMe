@@ -10,9 +10,10 @@
 	<h2>type a new note</h2>
 	<div id="formDiv">
 	<label for="txtNote" ><p>Reminder</p></label>
-	<input id="txtNote" type="text" placeholder="Remind me to..." onkeyup="onEnter()" />
-	<input type="button" id="btnSubmit" onclick="save()" value="Save"/ >
-	<div id="storedNotes">	
+	<input id="txtNote" type="text" placeholder="Remind me to..." onkeyup="onEnter()" autofocus />
+	<input type="button" id="btnSubmit" onclick="save()" value="Save"/ >	
+	</div>
+	<div id="storedNotes" ondrop="drop(event)" ondragover="drag_over(event)">
 	</div>
 	</body>
 	</html>

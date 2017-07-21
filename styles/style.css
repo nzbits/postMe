@@ -5,14 +5,15 @@ body{
 }
 
 #storedNotes{
-	width: 85%;
+	min-height: 500px;
+	width: 100%;
 	position: absolute;
 	border : 0px solid black;	
 	height: auto;
 	align-content: center;
 }
 .post-it {
-position: relative;
+position: absolute;
 background:#fefabc; 
 padding:15px; 
 font-family: 'Gloria Hallelujah', cursive;
@@ -24,7 +25,6 @@ max-height: 200px;
 overflow: auto;
 left: 30px;
 top:30px;
-display: inline-grid;
 margin: 15px;
 
 transform-origin: left;
