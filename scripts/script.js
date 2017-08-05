@@ -36,6 +36,8 @@ function save(){
     var store = transaction.objectStore("notas");
 	note.text=document.getElementById("txtNote").value;
 	note.state=1;
+    note.top=0;
+    note.left=0;
     //TODO: get position of note and update
 	console.log("we are trying to add : "+note.text);
 	var request = store.add(note);
@@ -53,32 +55,37 @@ function save(){
 
 function read(){
 	console.log("runnning read all ");
-	var s = ''; 
+	 document.getElementById("storedNotes").innerHTML="";
     db.transaction(["notas"], "readonly").objectStore("notas").openCursor().onsuccess = function(e) {
         var cursor = e.target.result;
         if(cursor) {
+            var s = '';
             s += "<div id='note_"+cursor.key+"' class='post-it' draggable='true' ondragstart='drag_start(event,"+cursor.key+")' > <input type='Button' id='btnDelete' onClick='deleteDiv("+cursor.key+")' class='closeBtn' value='X'/>"
             +"<p id=p_"+cursor.key
             +" ondblclick=\"this.contentEditable=true;this.className='inEdit';\" "
             +" onblur=\" this.contentEditable=false; this.className=''; update(" + cursor.key +");\""
             +" contenteditable='false' class='' "
             +" onkeyup=\"onEnterEdit("+cursor.key+")\">";
-            s+= cursor.value["text"]+"<br/>";
+            s+= cursor.value["text"];
             s+="</p></div>"
-            //TODO get x, y values and paint
+            document.getElementById("storedNotes").innerHTML += s;
+            var noteDiv = document.getElementById("note_"+cursor.key);
+            noteDiv.style.left = cursor.value.left + 'px';
+            noteDiv.style.top = cursor.value.top  + 'px';
             cursor.continue();
         }
+        //TODO get x, y values and paint 187.245.238.21
+        
 
-        document.getElementById("storedNotes").innerHTML = s;
 
     } 
 
 };
 
-function update(key,x,y){
+function update(key,left,top){
     console.log("running update with key "+key );
-    console.log("running update with x "+x );
-    console.log("running update with y "+y );
+    console.log("running update with left "+left );
+    console.log("running update with top "+top );
     var transaction = db.transaction(["notas"],"readwrite");
     var store = transaction.objectStore("notas");    
     var noteRequest = store.get(key);
@@ -90,12 +97,12 @@ function update(key,x,y){
         var note = noteRequest.result;
         console.log("found note :"+JSON.stringify(note)); 
         var p = ""+document.getElementById("p_"+key).innerHTML;       
-        //console.log("my text "+p);
+        console.log("my text "+p+"/");
             note.text= p;
-            if(x)
-                note.xPos=x;
-            if(y)
-                note.yPos=y;
+            if(left)
+                note.left=left;
+            if(top)
+                note.top=top;
          var updateNoteRequest = store.put(note,key);
          updateNoteRequest.onsuccess = function(){
             console.log('update transaction:'+updateNoteRequest.transaction);
@@ -181,14 +188,14 @@ function drop(event) {
         key = event.dataTransfer.getData("key");
     } 
     catch(e) {
-        offset = offset_data.split(',');
+        offset = offset_data;
         key = movingKey;
     } 
     key = movingKey;  
-    console.log("key " ,key) ;
-    var noteDiv = document.getElementById("note_"+key);
-    noteDiv.style.left = (event.clientX + parseInt(offset[0],10)) + 'px';
-    noteDiv.style.top = (event.clientY + parseInt(offset[1],10)) + 'px';
+    console.log("key " ,key) ;    
+    var top = event.clientY + parseInt(offset[1],10);
+    var left = event.clientX + parseInt(offset[0],10);    
+    update(key,left, top);
     event.preventDefault();
     return false;
 } ;
