@@ -1,18 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Gloria+Hallelujah');
 body{
-	background-color: #63856a;
+	background-image: url("../img/chip.jpg");   
+	object-fit: scale-down;
+	background-color: black;
 	align-content: center;
-}
-
-.greenboard {
-background: #63856a; /* Old browsers */
-background: -moz-radial-gradient(center, ellipse cover,  #63856a 1%, #3c5a40 100%); /* FF3.6+ */
-background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(1%,#63856a), color-stop(100%,#3c5a40)); /* Chrome,Safari4+ */
-background: -webkit-radial-gradient(center, ellipse cover,  #63856a 1%,#3c5a40 100%); /* Chrome10+,Safari5.1+ */
-background: -o-radial-gradient(center, ellipse cover,  #63856a 1%,#3c5a40 100%); /* Opera 12+ */
-background: -ms-radial-gradient(center, ellipse cover,  #63856a 1%,#3c5a40 100%); /* IE10+ */
-background: radial-gradient(ellipse at center,  #63856a 1%,#3c5a40 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#63856a', endColorstr='#3c5a40',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 
 
@@ -62,4 +53,36 @@ box-shadow: 0px 4px 6px #333;
   text-decoration: none;
   text-shadow: 0 1px 0 #fff;
   top: 5px;
+}
+
+.main-menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 99;
+}
+
+.main-menu ul li {
+    float: left;
+}
+
+.main-menu ul li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.main-menu ul li a:hover:not(.active) {
+    background-color: #111;
+}
+
+.main-menu ul .active {
+    background-color: ##2079c7;
 }

@@ -4,6 +4,9 @@ var dbSupported=false;
 var states=["new","in progress","done", "deleted"];
 var note={text:"", state:0};
 var db;
+var currentBg;
+var backgrounds= ["img/chip.jpg","img/chess.jpg","img/chopping.jpg"];
+
 document.addEventListener('DOMContentLoaded', function(){ 
 	if("indexedDB" in window) {
 		dbSupported= true;
@@ -27,10 +30,19 @@ document.addEventListener('DOMContentLoaded', function(){
     	}
 
 	}
+    currentBg=0;
 });
 
-
-function save(){
+function changeBg(){
+    var body = document.getElementById("myBody")
+    if(currentBg+1==backgrounds.length) currentBg=0;
+    else currentBg++;
+    body.style.backgroundImage = "url('"+backgrounds[currentBg]+"')";
+        
+    }
+    
+    
+    function save(){
 	console.log("running save with db "+db);
 	var transaction = db.transaction(["notas"],"readwrite");
     var store = transaction.objectStore("notas");
