@@ -1,18 +1,31 @@
 @import url('https://fonts.googleapis.com/css?family=Gloria+Hallelujah');
 body{
-	background-color: beige;
+	background-color: #63856a;
 	align-content: center;
 }
 
+.greenboard {
+background: #63856a; /* Old browsers */
+background: -moz-radial-gradient(center, ellipse cover,  #63856a 1%, #3c5a40 100%); /* FF3.6+ */
+background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(1%,#63856a), color-stop(100%,#3c5a40)); /* Chrome,Safari4+ */
+background: -webkit-radial-gradient(center, ellipse cover,  #63856a 1%,#3c5a40 100%); /* Chrome10+,Safari5.1+ */
+background: -o-radial-gradient(center, ellipse cover,  #63856a 1%,#3c5a40 100%); /* Opera 12+ */
+background: -ms-radial-gradient(center, ellipse cover,  #63856a 1%,#3c5a40 100%); /* IE10+ */
+background: radial-gradient(ellipse at center,  #63856a 1%,#3c5a40 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#63856a', endColorstr='#3c5a40',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+
 #storedNotes{
-	width: 85%;
+	min-height: 500px;
+	width: 100%;
 	position: absolute;
 	border : 0px solid black;	
 	height: auto;
 	align-content: center;
 }
 .post-it {
-position: relative;
+position: absolute;
 background:#fefabc; 
 padding:15px; 
 font-family: 'Gloria Hallelujah', cursive;
@@ -24,7 +37,6 @@ max-height: 200px;
 overflow: auto;
 left: 30px;
 top:30px;
-display: inline-grid;
 margin: 15px;
 
 transform-origin: left;
@@ -39,4 +51,15 @@ box-shadow: 0px 4px 6px #333;
 -moz-box-shadow: 0px 4px 6px #333;
 -webkit-box-shadow: 0px 4px 6px #333;
 
+}
+.closeBtn{
+	background: none;
+	border:none;
+  color: #777;
+  font: 14px/100% arial, sans-serif;
+  position: absolute;
+  right: 5px;
+  text-decoration: none;
+  text-shadow: 0 1px 0 #fff;
+  top: 5px;
 }
