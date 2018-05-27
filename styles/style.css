@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Gloria+Hallelujah');
 body{
-	background-image: url("../img/chip.jpg");   
-	object-fit: scale-down;
+	background-image: url("../img/chip.jpg"); 
+	background-size: 100%;  
+	object-fit: contain;
 	background-color: black;
 	align-content: center;
 }
